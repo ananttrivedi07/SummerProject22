@@ -38,6 +38,12 @@ public class userDao {
         while (lastQueryResult.next()) {
 
             System.out.println(lastQueryResult.getString("username"));
+            System.out.println(lastQueryResult.getString("username"));
+            System.out.println(lastQueryResult.getString("username"));
+            System.out.println(lastQueryResult.getString("username"));
+            System.out.println(lastQueryResult.getString("username"));
+
+
 
         }
         connection.close();
