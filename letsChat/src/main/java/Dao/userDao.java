@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Random;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
@@ -47,7 +48,7 @@ public class userDao {
 
     //store new user (with verified false)
     public boolean insertUser(User user) throws SQLException, NoSuchAlgorithmException {
-        String insertQuery = "INSERT INTO user(username, email, password, salt, verified)" + "VALUES(?,?,?,?,?)";
+        String insertQuery = "INSERT INTO user(username, email, password, code, salt, verified)" + "VALUES(?,?,?,?,?,?)";
         Connection connection = makeConnection();
         PreparedStatement pstmt = connection.prepareStatement(insertQuery);
         //create random numbers for the salt
@@ -71,13 +72,37 @@ public class userDao {
         String sha256 = DatatypeConverter.printHexBinary(digest).toLowerCase();
 
         pstmt.setString(3, sha256);
-        pstmt.setString(4, String.valueOf(salt));
-        pstmt.setBoolean(5, false);
-        pstmt.executeUpdate();
 
-        //create a profile for that user
+        //random number of 6 digit.
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        String code = String.format("%06d", number);
 
+        pstmt.setString(4, code);
+        pstmt.setString(5, String.valueOf(salt));
+        pstmt.setBoolean(6, false);
+        int resultQuery = pstmt.executeUpdate();
         connection.close();
+        if (resultQuery <= 0) {
+            return false;
+        }
+        //create a profile for that user
+        return true;
+    }
+
+    //set verification to true
+    public boolean verifyUser(User user) throws SQLException {
+        Connection connection = makeConnection();
+        String updateQuery = "UPDATE user " +
+                "SET verified = true " +
+                "WHERE username = ? ";
+        PreparedStatement pstmt = connection.prepareStatement(updateQuery);
+        pstmt.setString(1, user.getUsername());
+        int rowsAffected = pstmt.executeUpdate();
+        connection.close();
+        if (rowsAffected <= 0) {
+            return false;
+        }
         return true;
     }
 
