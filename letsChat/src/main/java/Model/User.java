@@ -7,6 +7,15 @@ public class User {
 
     private String code;
     private String salt;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     private boolean verified;
 
     public User() {
