@@ -10,10 +10,12 @@ import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Random;
 
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
+public enum userDao {
+    instance;
 
-public class userDao {
+    private userDao() {
 
+    }
     //private Connection connection;
     private ResultSet lastQueryResult;
 
@@ -106,11 +108,60 @@ public class userDao {
         return true;
     }
 
-    public static void main(String[] args) throws SQLException {
-        userDao userDao = new userDao();
-        userDao.makeConnection();
-
+    //check if username already exists
+    //used for registration purposes
+    public Boolean checkUserUsername(String username) throws SQLException {
+        Connection connection = makeConnection();
+        String query = "SELECT * " +
+                "FROM \"user\" t " +
+                "WHERE username = " + "'" + username + "'";
+        Statement getstmt = connection.createStatement();
+        ResultSet rs = getstmt.executeQuery(query);
+        boolean exists = false;
+        if (rs.next()) {
+            exists = true;
+        }
+        return exists;
     }
 
+    public Boolean checkUserEmail(String email) throws SQLException {
+        Connection connection = makeConnection();
+        String query = "SELECT * " +
+                "FROM \"user\" t " +
+                "WHERE email = " + "'" + email + "'";
+        Statement getstmt = connection.createStatement();
+        ResultSet rs = getstmt.executeQuery(query);
+        boolean exists = false;
+        if (rs.next()) {
+            exists = true;
+        }
+        return exists;
+    }
 
+    //check if verified
+    public Boolean checkUserVerification(String username) throws SQLException {
+        Connection connection = makeConnection();
+        String query = "SELECT verified " +
+                "FROM \"user\" t " +
+                "WHERE username = " + "'" + username + "'";
+        Statement getstmt = connection.createStatement();
+        ResultSet rs = getstmt.executeQuery(query);
+        Boolean verified = rs.getBoolean("verified");
+        return verified;
+    }
+
+    //check if passwords match
+    public Boolean checkUserPassword(String username, String password) throws SQLException {
+        Connection connection = makeConnection();
+        String query = "SELECT verified " +
+                "FROM \"user\" t " +
+                "WHERE username = " + "'" + username + "'";
+        Statement getstmt = connection.createStatement();
+        ResultSet rs = getstmt.executeQuery(query);
+        String actualPassword = rs.getString("password");
+        if (actualPassword.equals(password)) {
+            return true;
+        }
+        return false;
+    }
 }
