@@ -1,15 +1,11 @@
 package dao;
 
-import org.postgresql.jdbc.PgConnection;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class userDao {
+public class userDaoconf {
 
     private Connection connection;
     private ResultSet lastQueryResult;
@@ -53,7 +49,7 @@ public class userDao {
 
 
     public static void main(String[] args) throws SQLException {
-        userDao userDao = new userDao();
+        userDaoconf userDao = new userDaoconf();
         userDao.makeConnection();
 
     }
