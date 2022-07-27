@@ -3,4 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+<!--    this is testing1243-->
+    <servlet>
+
+        <!--		each project (in this case the bikeDealer) is bootstrapped with the a servlet-->
+        <!--		this is basically the name of the servlet-->
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+
+        <!--		firstly there should be servlet-class name to specify which class is being used by the servlet.-->
+        <!--		Then there should be init param thingy that should specify which exact package to look for when-->
+        <!--		the url has for example "bikes" after the "rest" thingy
+                    ** BECAUSE then JERSEY WOULD KNOW WHICH PACKAGE TO LOOK FOR AND
+                    THEN he can see which class has the annotation for the path-->
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+
+        <!--		any request what is coming on this project (GET, POST, PUT, DELETE) is been handled by the this servlet class-->
+        <!--		that servlet is basically mapped with the url pattern "rest", so after that "rest" what we put is handled by the
+                    "JERSEY" servlet
+                    What the JERSEY servlet do is basically it reads the code that we write (which is basically the class that we put after
+                    the rest) and processes it. -->
+
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
 </web-app>
