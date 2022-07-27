@@ -39,7 +39,7 @@ public class QueryMan {
 
     public void executeInsertPost(
             String insertQuery,
-            String postId,
+            int postId,
             String postContent,
             int commentCount,
             String postTitle,
@@ -48,7 +48,7 @@ public class QueryMan {
 
         PreparedStatement insertThis = connection.prepareStatement(insertQuery);
 
-        insertThis.setString(1, postId);
+        insertThis.setInt(1, postId);
         insertThis.setString(2, postContent);
         insertThis.setInt(3, commentCount);
         insertThis.setString(4, postTitle);
