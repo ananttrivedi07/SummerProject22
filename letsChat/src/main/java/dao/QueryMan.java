@@ -32,6 +32,11 @@ public class QueryMan {
         this.connection.close();
     }
 
+    public QueryFactory getQueryFactory() {
+        return queryFactory;
+    }
+
+
     public ResultSet getLastResultSet() {
         return this.lastResultSet;
     }

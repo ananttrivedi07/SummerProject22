@@ -1,15 +1,20 @@
 package dao;
 
 import model.Post;
+import org.junit.platform.engine.discovery.PackageSelector;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Service {
+public enum Service {
 
-    private Map<String, Post> mapOfPosts = new HashMap<>();
+    instance
+
+    private Map<String, ArrayList<Pos>> mapOfPosts = new HashMap<>();
 
 
     public void storeAllPosts(ResultSet resultSet) throws SQLException {
