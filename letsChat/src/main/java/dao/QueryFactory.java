@@ -14,4 +14,6 @@ public class QueryFactory {
     public String editPost() {
         return "UPDATE post SET postcontent = '?' AND posttitle = '?' WHERE post_id = '?' AND userName = '?'";
     }
+
+
 }

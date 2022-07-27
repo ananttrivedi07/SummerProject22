@@ -13,8 +13,9 @@ import java.util.Map;
 public enum Service {
 
     instance
-
-    private Map<String, ArrayList<Pos>> mapOfPosts = new HashMap<>();
+                // ANANT [1,2,3]
+                // AIMAN [4,5,6]
+    private Map<String, ArrayList<Post>> mapOfPosts = new HashMap<>();
 
 
     public void storeAllPosts(ResultSet resultSet) throws SQLException {

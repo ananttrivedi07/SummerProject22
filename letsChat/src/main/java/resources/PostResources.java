@@ -22,7 +22,7 @@ public class PostResources {
 
         queryMan = new QueryMan();
 
-        queryMan.executeInsertPost(queryMan.getQueryFactory().insertPost(), );
+        queryMan.executeInsertPost(queryMan.getQueryFactory().insertPost(), postContent, postTitle);
 
 
 
